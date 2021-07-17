@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+    <style>
+        .myblack{
+            background:rgba(0,50,100,0.6);
+            margin-top:30%;
+        }
+        .myblack h2{
+            color:white;
+        }
+        body{
+            height:900px;
+            background:url('/static/1.gif') no-repeat;
+            background-size:100% 100%;
+    }
+    </style>
+</head>
+<body class="bk">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-offset-3 col-sm-6"><!--定义页面在不同端显示大小-->
+                <div class="well myblack">
+                    <h2 align="center">欢迎注册</h2>
+                    <form action="/register_data/" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </span>
+                            <input type="text" name="username" class="form-control" placeholder="请输入用户名" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                            </span>
+                            <input type="password" name="password"  class="form-control" placeholder="请输入密码" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                            </span>
+                            <input type="password" name="repassword"  class="form-control" placeholder="请再次输入密码" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-success btn-block">注册</button>
+                        <br>
+                        <p onclick="showMsg()" style="color:red; text-align:center">{{error_msg}}</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

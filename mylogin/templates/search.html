@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+</head>
+<style>
+    .mi{
+        margin-right:5px;
+    }
+    .ti{
+        margin-top:-20px;
+    }
+    .xuan:hover{
+        background-color:grey;
+        color:white;
+    }
+    body{
+        height:900px;
+        background:url('/stastic/2.jpg') no-repeat;
+        background-size:100% 100%;
+    }
+    .fenge{
+    	width:100%;
+    	height:2px;
+    	background-color:black;
+    }
+</style>
+<body>
+    <div>
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">学生宿舍管理系统后台界面</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <form class="navbar-form navbar-left" action="/search_data/" method="post" role="search">
+                          {% csrf_token %}
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="content" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">查询</button>
+                      </form>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">用户名:{{user}}</a></li>
+                        <li><a href="/login/">注销</a></li>       <!--实现页面注销，回到登录界面-->
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+        </div>
+    </div>
+	<div><!--class="container" 表示居中-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-3">
+            <ul class="list-group">
+              <a href="/student/1"><li class="list-group-item xuan">学生信息表</li></a>
+              <a href="/emp/1"><li class="list-group-item xuan">宿舍管理员信息表</li></a>
+              <a href="/dor/1"><li class="list-group-item xuan">宿舍信息表</li></a>
+              <a href="/pay/1"><li class="list-group-item xuan">宿舍缴费信息表</li></a>
+              <a href="/repair/1"><li class="list-group-item xuan">宿舍报修表</li></a>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="panel panel-default mi">
+				<div class="panel-heading">
+					<h2 align="center">学生信息管理</h2>
+                    <nav class="pull-right ti">
+					  <ul class="pagination">
+						<li>
+						  <a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						</li>
+						<li><a href="/student/1">1</a></li>
+						<li><a href="/student/2">2</a></li>
+						<li><a href="/student/3">3</a></li>
+						<li><a href="/student/4">4</a></li>
+						<li><a href="/student/5">5</a></li>
+						<li>
+						  <a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						</li>
+					  </ul>
+					</nav>
+                </div>
+
+                <div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td>学号</td>
+							<td>姓名</td>
+							<td>性别</td>
+							<td>年龄</td>
+							<td>宿舍号</td>
+                            <td>楼号</td>
+                            <td>区号</td>
+						</tr>
+						{% for stu in results %}
+					    <tr>
+							<td>{{stu.sno}}</td>
+							<td>{{stu.sname}}</td>
+							<td>
+							   {% if stu.ssex %}
+							   女
+							   {% else %}
+							   男
+							   {% endif %}
+							</td>
+							<td>{{stu.sage}}</td>
+							<td>{{stu.waijian__dormitory__sushe_num}}</td>
+                            <td>{{stu.waijian__dormitory__louhao}}</td>
+                            <td>{{stu.waijian__dormitory__quhao}}</td>
+					    </tr>
+							{% endfor %}
+					</table>
+                    <br>
+					<div class="fenge"></div>
+					<br>
+					<br>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							{% if {{param}} %}
+								<td>缴费金额</td>
+								<td>用水量</td>
+								<td>用电量</td>
+								<td>宿舍联系电话</td>
+								<td>报修信息</td>
+							{% endif %}
+								<td>宿舍联系电话</td>
+								<td>报修信息</td>
+						</tr>
+							{% for stu in results %}
+					    <tr>
+							{% if {{param}} %}
+								<td>{{stu.waijian__pay__pay_amount}}</td>
+								<td>{{stu.waijian__pay__yongshuiliang}}</td>
+								<td>{{stu.waijian__pay__yongdianliang}}</td>
+								<td>{{stu.waijian__dormitory__telephone}}</td>
+								<td>{{stu.waijian__repair__reason}}</td>
+							{% endif %}
+								<td>{{stu.waijian__dormitory__telephone}}</td>
+								<td>{{stu.waijian__repair__reason}}</td>
+                        </tr>
+                            {% endfor %}
+                    </table>
+				</div>
+   		    </div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

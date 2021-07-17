@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+</head>
+<style>
+    .mi{
+        margin-right:5px;
+    }
+    .ti{
+        margin-top:-20px;
+    }
+    .xuan:hover{
+        background-color:grey;
+        color:white;
+    }
+    .fenge{
+    	width:100%;
+    	height:2px;
+    	background-color:black;
+    }
+    body{
+        height:900px;
+        background:url('/static/2.jpg') no-repeat;
+        background-size:100% 100%;
+    }
+</style>
+<body>
+    <div>
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">学生宿舍管理系统后台界面</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <form class="navbar-form navbar-left" action="/search_data/" method="post" role="search">
+						  {% csrf_token %}
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="content" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">查询</button>
+                      </form>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">用户名:{{user}}</a></li>
+                        <li><a href="/login/">注销</a></li>       <!--实现页面注销，回到登录界面-->
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+        </div>
+    </div>
+	<div><!--class="container" 表示居中-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-3">
+            <ul class="list-group">
+              <a href="/student/1"><li class="list-group-item xuan">学生信息表</li></a>
+              <a href="/emp/1"><li class="list-group-item xuan">宿舍管理员信息表</li></a>
+              <a href="/dor/1"><li class="list-group-item xuan">宿舍信息表</li></a>
+              <a href="/pay/1"><li class="list-group-item xuan">宿舍缴费信息表</li></a>
+              <a href="/repair/1"><li class="list-group-item xuan">宿舍报修表</li></a>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="panel panel-default mi">
+				<div class="panel-heading">
+					<h2 align="center">学生信息管理</h2>
+					<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+					 添加
+					</button>
+					<!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">添加学生信息</h4>
+						  </div>
+							<form action="/add_stu/" method="post">
+								  {% csrf_token %}
+								  <div class="modal-body" align="center">
+									<p>学号：<input type="text" name="sno"/> </p>
+									<p>姓名：<input type="text" name="name"/> </p>
+									<p>性别：<input type="radio" name="sex" value="0"/> 男<input type="radio" name="sex" value="1">女</p>
+									<p>年龄：<input type="text" name="age"/> </p>
+									<p>系别：<input type="text" name="dept"/> </p>
+									<p>专业：<input type="text" name="major"></p>
+									<p>班级：<input type="text" name="grade"/> </p>
+									<p>学生类型：<input type="text" name="type"></p>
+									<p>入校时间：<input type="date" name="intime"></p>
+									<p>离校时间：<input type="date" name="outtime"></p>
+								  </div>
+								  <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+										<button type="submit" class="btn btn-primary">提交</button>
+								  </div>
+							   </form>
+						</div>
+					  </div>
+				    </div>
+
+                    <nav class="pull-right ti">
+					  <ul class="pagination">
+						<li>
+						  <a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						</li>
+						<li><a href="/student/1">1</a></li>
+						<li><a href="/student/2">2</a></li>
+						<li><a href="/student/3">3</a></li>
+						<li><a href="/student/4">4</a></li>
+						<li><a href="/student/5">5</a></li>
+						<li>
+						  <a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						</li>
+					  </ul>
+					</nav>
+                </div>
+
+                <div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td>学号</td>
+							<td>姓名</td>
+							<td>性别</td>
+							<td>年龄</td>
+							<td>系别</td>
+							<td>专业</td>
+						</tr>
+						{% for stu in all %}
+					    <tr>
+							<td>{{stu.sno}}</td>
+							<td>{{stu.sname}}</td>
+							<td>
+							   {% if stu.ssex %}
+							   女
+							   {% else %}
+							   男
+							   {% endif %}
+							</td>
+							<td>{{stu.sage}}</td>
+							<td>{{stu.sdept}}</td>
+							<td>{{stu.smajor}}</td>
+					    </tr>
+							{% endfor %}
+					</table>
+					<br>
+					<div class="fenge"></div>
+					<br>
+					<br>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td>班级</td>
+							<td>学生类型</td>
+							<td>入校时间</td>
+							<td>离校时间</td>
+							<td>操作</td>
+						</tr>
+							{% for stu in all %}
+					    <tr>
+							<td>{{stu.sgrade}}</td>
+							<td>{{stu.stype}}</td>
+							<td>{{stu.sintime}}</td>
+							<td>{{stu.souttime}}</td>
+							<td>
+								 <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal{{stu.id}}">
+									修改
+								 </button>
+							  <!-- Modal -->
+								<div class="modal fade" id="myModal{{stu.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">添加学生信息</h4>
+									  </div>
+										<form align="center" action="/edit_stu/{{stu.id}}/" method="post">
+											{% csrf_token %}
+										  <div class="modal-body">
+											<p>学号：<input type="text" name="sno" value="{{stu.sno}}"></p>
+											<p>姓名：<input type="text" name="name" value="{{stu.sname}}"></p>
+											<p>性别：
+												{% if stu.ssex %}
+												<input type="radio" name="sex" value="1" checked="checked">女
+												<input type="radio" name="sex" value="0">男
+												{% else %}
+												<input type="radio" name="sex" value="1">女
+												<input type="radio" name="sex" value="0" checked="checked">男
+												{% endif %}
+											</p>
+											<p>年龄：<input type="text" name="age" value="{{stu.sage}}"></p>
+											<p>系别：<input type="text" name="dept" value="{{stu.sdept}}"></p>
+											<p>专业：<input type="text" name="major" value="{{stu.smajor}}"></p>
+											<p>班级：<input type="text" name="grade" value="{{stu.sgrade}}"></p>
+											<p>学生类型：<input type="text" name="type" value="{{stu.stype}}"></p>
+											<p>入校时间：<input type="date" name="intime" value="{{stu.sintime}}"></p>
+											<p>离校时间：<input type="date" name="outtime" value="{{stu.souttime}}"></p>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+											<button type="submit" class="btn btn-primary">提交</button>
+										  </div>
+										</form>
+									</div>
+								  </div>
+								</div>
+								<a href="/del/{{stu.id}}/"><button class="btn btn-danger">删除</button></a>
+                     		</td>
+						</tr>
+							{% endfor %}
+					</table>
+				</div>
+   		    </div>
+		</div>
+	</div>
+</div>
+	</div>
+</body>
+</html>

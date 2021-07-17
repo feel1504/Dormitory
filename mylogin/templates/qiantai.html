@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+    <style>
+        .mycolor { color:white;}
+        .mycolor li{
+                    margin-right:60px;
+        }
+        body{
+            background:#00FFFF;
+        }
+    </style>
+</head>
+<body>
+    <div class>
+        <div class="'col-xs-12">
+        <nav class="navbar navbar-inverse">
+               <ul class="nav navbar-nav navbar-right mycolor" >
+                <li>登录名：张三</li>
+               </ul>
+        </nav>
+        </div>
+    </div>
+            <div class="contains">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                    <img src=https://img2.baidu.com/it/u=3658379912,845864056&fm=26&fmt=auto&gp=0.jpg>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="jumpbotron">
+                            <h1>{{user}}</h1>
+                            {% for score in content %}
+                            <h3>缴费金额：{{score.waijian__pay__pay_amount}}</h3>
+                            <h3>用水量：{{score.waijian__pay__yongshuiliang}}</h3>
+                            <h3>用电量：{{score.waijian__pay__yongdianliang}}</h3>
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+            </div>
+</body>
+</html>

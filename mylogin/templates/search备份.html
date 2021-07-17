@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
+</head>
+<style>
+    .mi{
+        margin-right:5px;
+    }
+    .ti{
+        margin-top:-20px;
+    }
+    .xuan:hover{
+        background-color:grey;
+        color:white;
+    }
+    body{
+        height:900px;
+        background:url('/stastic/2.jpg') no-repeat;
+        background-size:100% 100%;
+    }
+</style>
+<body>
+    <div>
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">学生宿舍管理系统后台界面</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <form class="navbar-form navbar-left" action="/search/" role="search">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="请输入搜索内容">
+                        </div>
+                        <button type="submit" class="btn btn-default">查询</button>
+                      </form>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">用户名:{{user}}</a></li>
+                        <li><a href="/login/">注销</a></li>       <!--实现页面注销，回到登录界面-->
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+        </div>
+    </div>
+	<div><!--class="container" 表示居中-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-3">
+            <ul class="list-group">
+              <li class="list-group-item xuan">学生信息表</li>
+              <li class="list-group-item xuan">宿舍管理员信息表</li>
+              <li class="list-group-item xuan">宿舍信息表</li>
+              <li class="list-group-item xuan">宿舍缴费信息表</li>
+              <li class="list-group-item xuan">宿舍报修表</li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="panel panel-default mi">
+				<div class="panel-heading">
+					<h2 align="center">学生信息管理</h2>
+
+                    <nav class="pull-right ti">
+					  <ul class="pagination">
+						<li>
+						  <a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						  </a>
+						</li>
+						<li><a href="/student/1">1</a></li>
+						<li><a href="/student/2">2</a></li>
+						<li><a href="/student/3">3</a></li>
+						<li><a href="/student/4">4</a></li>
+						<li><a href="/student/5">5</a></li>
+						<li>
+						  <a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						  </a>
+						</li>
+					  </ul>
+					</nav>
+                </div>
+
+                <div class="panel-body">
+					<table class="table table-hover">
+						<tr>
+							<td>学号</td>
+							<td>姓名</td>
+							<td>性别</td>
+							<td>年龄</td>
+							<td>系别</td>
+							<td>专业</td>
+						</tr>
+						{% for stu in all %}
+					    <tr>
+							<td>{{stu.sno}}</td>
+							<td>{{stu.sname}}</td>
+							<td>
+							   {% if stu.ssex %}
+							   女
+							   {% else %}
+							   男
+							   {% endif %}
+							</td>
+							<td>{{stu.sage}}</td>
+							<td>{{stu.sdept}}</td>
+							<td>{{stu.smajor}}</td>
+					    </tr>
+							{% endfor %}
+					</table>
+					<br>
+					<br>
+					<br>
+					<table class="table table-hover">
+						<tr>
+							<td>班级</td>
+							<td>学生类型</td>
+							<td>入校时间</td>
+							<td>离校时间</td>
+							<td>操作</td>
+						</tr>
+							{% for stu in all %}
+					    <tr>
+							<td>{{stu.sgrade}}</td>
+							<td>{{stu.stype}}</td>
+							<td>{{stu.sintime}}</td>
+							<td>{{stu.souttime}}</td>
+						</tr>
+							{% endfor %}
+					</table>
+				</div>
+   		    </div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
